@@ -1,14 +1,30 @@
-CXX = g++
-CXXFLAGS = -std=c++17 -Wall -Wextra
+CXX      := g++
+CXXFLAGS := -std=c++17 -Wall -Wextra -Wpedantic -g -Iinclude -MMD -MP
 
-SRCS = main.cpp alfabeto.cpp automato.cpp transdutor_mealy.cpp relatorio.cpp
-OBJS = $(SRCS:.cpp=.o)
-TARGET = mascarador
+SRC_DIR   := src
+BUILD_DIR := build
+TARGET    := $(BUILD_DIR)/mascarador
+
+SRCS := $(wildcard $(SRC_DIR)/*.cpp)
+OBJS := $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(SRCS))
+DEPS := $(OBJS:.o=.d)
+
+.PHONY: all run clean
 
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
+	@mkdir -p $(BUILD_DIR)
+	$(CXX) $(CXXFLAGS) -o $@ $^
+
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
+	@mkdir -p $(BUILD_DIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+run: all
+	./$(TARGET)
 
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -rf $(BUILD_DIR)
+
+-include $(DEPS)

@@ -1,0 +1,9 @@
+Usuario 123.456.789-00 autenticado
+Tel: (13) 98877-6655 ativo
+Nascido em 25/12/1998 em Santos
+Contato: joao@unisantos.com enviado
+Prontuario saude:hiv e religiao:umbanda
+Cadastro filiacao:sindicato sexo:feminino
+Erro no pacote 123.456.78A-00 rede
+Servidor IP 192.168.0.1 online
+Email invalido admin@@dominio.c
